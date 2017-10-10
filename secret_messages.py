@@ -1,7 +1,4 @@
 import os
-import string
-
-from cipher import Cipher
 
 
 # This function calls on the proper class for the requested cipher
@@ -26,7 +23,7 @@ def cipher_viewer(cipher_list):
     """This function shows the user all of the ciphers the secret_messages
     application contains"""
     print("Here is a list of all the ciphers that can be used.\n" +
-          "{}".format(cipher_list))
+          "{}\n".format(cipher_list))
 
 
 def cipher_selector(cipher_list):
@@ -68,11 +65,10 @@ def main(clear_screen=True):
 
         # Prints out a menu prompting the user to select a cipher or quit
         # Asks the user if the cipher is going to encrypt or decrypt
-        menu_selector = input("\nWould you like to encrypt or decrypt a " +
-                              "Message?\n"
-                              "Enter view to see the ciphers this" +
-                              " program has.\n"
-                              "Enter quit or q to end the program.  ").lower()
+        menu_selector = input(
+         """Would you like to encrypt or decrypt a message?flkasjlsjadjsfhdakjlfshad
+Enter view to see the ciphers this program has.
+Enter quit or q to end the program. """).lower()
 
         # Sends the user to an encryption or decryption function
         if menu_selector == 'encrypt' or menu_selector == 'e':
