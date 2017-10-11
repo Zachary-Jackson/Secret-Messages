@@ -1,7 +1,9 @@
 import os
 
+from atbash import Atbash
 
 # This function calls on the proper class for the requested cipher
+
 
 def clear():
     """This function clears the screen for easier reading and use"""
@@ -27,25 +29,52 @@ def cipher_viewer(cipher_list):
 
 
 def cipher_selector(cipher_list):
-    """This function gets the users choice of chiper and returns the
-    choice of the user as a string"""
-    clear()
-    cipher_viewer(cipher_list)
-    cipher = input("""Which cipher do you want to use?
-    Enter q to quit.  """).lower()
+    """This function gets the users choice of chiper and returns a
+    variable as the class of the the aformentioned chiper"""
+    else_true = True
+    while True:
+        if else_true:
+            clear()
+        cipher_viewer(cipher_list)
+        cipher = input("""Which cipher do you want to use?
+        Enter q to quit.  """).lower()
+        # This section creates the chiper class to return
+        if cipher == 'atbash':
+            cipher = Atbash
+            break
+        elif cipher == 'quit' or cipher == 'q':
+            break
+        else:
+            clear()
+            print("That is not a valid option.\n")
+            else_true = False
     return(cipher)
 
 
 def encryption(cipher):
-    clear()
-    temp = input("""This message will be destroyed.
+    """ This method takes a cipher class and returns a properly formated
+    encrypted string using the class's encryption and get_input function """
+    message = cipher.get_input(encrypt=True)
+    print(cipher.encryption(cipher, message))
+    continue_prompt = input("""This message will be destroyed.
 Press enter to return to the main menu.""")
+    # Normally the following would be left off, but is included so no
+    # PEP8 problems get presented
+    if continue_prompt:
+        return None
 
 
 def decryption(cipher):
-    clear()
-    temp = input("""This message will be destroyed.
+    """ This method takes a chiper class and returns a properly formated
+    encrypted string using the class's encryption and get_input function """
+    message = cipher.get_input(encrypt=False)
+    print(cipher.encryption(cipher, message))
+    continue_prompt = input("""This message will be destroyed.
 Press enter to return to the main menu.""")
+    # Normally the following would be left off, but is included so no
+    # PEP8 problems get presented
+    if continue_prompt:
+        return None
 
 
 def main(clear_screen=True):
@@ -66,7 +95,7 @@ def main(clear_screen=True):
         # Prints out a menu prompting the user to select a cipher or quit
         # Asks the user if the cipher is going to encrypt or decrypt
         menu_selector = input(
-         """Would you like to encrypt or decrypt a message?flkasjlsjadjsfhdakjlfshad
+         """Would you like to encrypt or decrypt a message?
 Enter view to see the ciphers this program has.
 Enter quit or q to end the program. """).lower()
 

@@ -1,38 +1,49 @@
-#This class is the parent class for all ciphers in that it automatically
-#creates the required encrypt and decrypt functions for ciphers.
+import os
+
+# This class is the parent class for all ciphers in that it automatically
+# creates the required encrypt and decrypt functions for ciphers.
+
 
 class Cipher:
-    def encryption(self):
-        """This creates an encryption method for all ciphers"""
-        raise NotImplementedError()
+    @classmethod
+    def clear(cls):
+        """This method clears the screen for easier reading and use"""
+        os.system('cls' if os.name == 'nt' else 'clear')
 
+    @classmethod
+    def get_input(cls, encrypt=True):
+        cls.clear()
+        if encrypt:
+            message_word = "encrypt"
+        else:
+            message_word = "decrypt"
+        message = input("Please enter the message you want to {}.\n".format(
+                        message_word) +
+                        "Use only standard letters and no numbers.  ")
+        return message
 
-    def decryption(self):
-        """This creates a decryption method for all ciphers"""
-        raise NotImplementedError()
-
-
-    def character_seperator(self, text):
+    @classmethod
+    def character_seperator(cls, text):
         """This method takes a list of letters or a single string with no
         whitespaces and convertes it into a string where every fith
         item is seperated by a space"""
 
-        #The following is redundancy to allow the use of a single string
-        #or a list of letters
+        # The following is redundancy to allow the use of a single string
+        # or a list of letters
         text = ''.join(text)
         text = text.upper()
         temp_text = []
         for letter in text:
             temp_text.append(letter)
 
-        #This section seperates the temp_output file by items of fives
+        # This section seperates the temp_output file by items of fives
         parsed_output = []
         output = []
         max_count = len(temp_text) - 1
         main_counter = 0
         sub_counter = 1
-        #This while loop gets all groups of letters except the last group
-        #if the last group does not round until five
+        # This while loop gets all groups of letters except the last group
+        # if the last group does not round until five
         while max_count >= main_counter:
             parsed_output.append(temp_text[main_counter])
             main_counter += 1
