@@ -11,7 +11,7 @@ class Cipher:
         os.system('cls' if os.name == 'nt' else 'clear')
 
     @classmethod
-    def get_input(cls, encrypt=True):
+    def get_input(cls, encrypt=True, *args, **kwargs):
         cls.clear()
         if encrypt:
             message_word = "encrypt"
@@ -23,7 +23,11 @@ class Cipher:
         return message
 
     @classmethod
-    def character_seperator(cls, text):
+    def whitespace_remover(cls, text):
+        pass
+
+    @classmethod
+    def character_seperator(cls, text, *args, **kwargs):
         """This method takes a list of letters or a single string with no
         whitespaces and convertes it into a string where every fith
         item is seperated by a space"""
