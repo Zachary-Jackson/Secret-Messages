@@ -27,15 +27,4 @@ class Atbash(Cipher):
 
     def decryption(self, text):
         """This method returns the uppercased result from the decryption"""
-        temp_output = []
-        text = text.upper()
-        letters = string.ascii_uppercase
-        letters_reversed = letters[::-1]
-        for character in text:
-            counter = 25
-            while counter >= 0:
-                if character == letters_reversed[counter]:
-                    temp_output.append(letters[counter])
-                counter -= 1
-        output = Cipher
-        return output.character_seperator(temp_output)
+        return self.encryption(self, text)

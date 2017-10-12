@@ -72,7 +72,6 @@ class RailFence(Cipher):
             else:
                 sub_counter += 1
                 main_counter += 1
-
         output = self.rail_sorter(self, text, text_2, text_3)
         output = self.character_seperator(output)
         return output

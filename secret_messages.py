@@ -74,7 +74,7 @@ def decryption(cipher):
     encrypted string using the class's encryption and get_input function """
     if cipher:
         message = cipher.get_input(encrypt=False)
-        print(cipher.encryption(cipher, message))
+        print(cipher.decryption(cipher, message))
         continue_prompt = input("""This message will be destroyed.
 Press enter to return to the main menu.""")
         # Normally the following would be left off, but is included so no
