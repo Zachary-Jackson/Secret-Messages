@@ -1,6 +1,7 @@
 import os
 
 from atbash import Atbash
+from rail_fence import RailFence
 
 # This function calls on the proper class for the requested cipher
 
@@ -41,6 +42,9 @@ def cipher_selector(cipher_list):
         # This section creates the chiper class to return
         if cipher == 'atbash':
             cipher = Atbash
+            break
+        if cipher == 'railfence' or cipher == 'rail fence':
+            cipher = RailFence
             break
         elif cipher == 'return' or cipher == 'r' or cipher == 'q':
             return False

@@ -12,6 +12,7 @@ class Cipher:
 
     @classmethod
     def get_input(cls, encrypt=True, *args, **kwargs):
+        """ This gets an input from the user and returns the raw data. """
         cls.clear()
         if encrypt:
             message_word = "encrypt"
@@ -24,7 +25,15 @@ class Cipher:
 
     @classmethod
     def whitespace_remover(cls, text):
-        pass
+        """ This method takes a string and removes the whitespaces and
+        punctuation before rejoining the string without whitespaces or
+        punctuation and returning it. """
+        punctuation = [' ', '.', '!', '?', ';', '@', ',', '$']
+        new_text = []
+        for letter in text:
+            if letter not in punctuation:
+                new_text.append(letter)
+        return ''.join(new_text)
 
     @classmethod
     def character_seperator(cls, text, *args, **kwargs):
