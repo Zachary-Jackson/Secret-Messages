@@ -41,10 +41,10 @@ def cipher_selector(cipher_list):
         Enter r to return to the main menu.  """).lower()
         # This section creates the chiper class to return
         if cipher == 'atbash':
-            cipher = Atbash
+            cipher = Atbash()
             break
         if cipher == 'railfence' or cipher == 'rail fence':
-            cipher = RailFence
+            cipher = RailFence()
             break
         elif cipher == 'return' or cipher == 'r' or cipher == 'q':
             return False
@@ -60,7 +60,7 @@ def encryption(cipher):
     encrypted string using the class's encryption and get_input function """
     if cipher:
         message = cipher.get_input()
-        print(cipher.encryption(cipher, message))
+        print(cipher.encryption(message))
         continue_prompt = input("""This message will be destroyed.
 Press enter to return to the main menu.""")
         # Normally the following would be left off, but is included so no
@@ -74,7 +74,7 @@ def decryption(cipher):
     encrypted string using the class's encryption and get_input function """
     if cipher:
         message = cipher.get_input(encrypt=False)
-        print(cipher.decryption(cipher, message))
+        print(cipher.decryption(message))
         continue_prompt = input("""This message will be destroyed.
 Press enter to return to the main menu.""")
         # Normally the following would be left off, but is included so no

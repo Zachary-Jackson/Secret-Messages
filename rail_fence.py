@@ -41,8 +41,8 @@ class RailFence(Cipher):
         # two lists to start the encryption proccess
         length = len(text)
         # text_2 & 3 are empty lists to be filled latter with letters
-        text_2 = self.empty_list_creator(self, length)
-        text_3 = self.empty_list_creator(self, length)
+        text_2 = self.empty_list_creator(length)
+        text_3 = self.empty_list_creator(length)
 
         # This section fills the text_2 and replaces some letters in text
         # main_counter controls the index variable for the append
@@ -72,7 +72,7 @@ class RailFence(Cipher):
             else:
                 sub_counter += 1
                 main_counter += 1
-        output = self.rail_sorter(self, text, text_2, text_3)
+        output = self.rail_sorter(text, text_2, text_3)
         output = self.character_seperator(output)
         return output
 

@@ -1,10 +1,16 @@
 import os
+import string
 
 # This class is the parent class for all ciphers in that it automatically
 # creates the required encrypt and decrypt functions for ciphers.
 
 
 class Cipher:
+    def __init__(self):
+        """This method initalizes Atbash"""
+        self.letters = string.ascii_uppercase
+        self.letters_reversed = self.letters[::-1]
+
     @classmethod
     def clear(cls):
         """This method clears the screen for easier reading and use"""
