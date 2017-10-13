@@ -2,6 +2,7 @@ import os
 
 from atbash import Atbash
 from rail_fence import RailFence
+from keyword_cipher import KeywordCipher
 
 # This function calls on the proper class for the requested cipher
 
@@ -43,8 +44,11 @@ def cipher_selector(cipher_list):
         if cipher == 'atbash':
             cipher = Atbash()
             break
-        if cipher == 'railfence' or cipher == 'rail fence':
+        elif cipher == 'railfence' or cipher == 'rail fence':
             cipher = RailFence()
+            break
+        elif cipher == 'keyword':
+            cipher = KeywordCipher()
             break
         elif cipher == 'return' or cipher == 'r' or cipher == 'q':
             return False
@@ -59,8 +63,8 @@ def encryption(cipher):
     """ This function takes a cipher class and returns a properly formated
     encrypted string using the class's encryption and get_input function """
     if cipher:
-        message = cipher.get_input()
-        print(cipher.encryption(message))
+        message, keyword = cipher.get_input()
+        print(cipher.encryption(message, keyword))
         continue_prompt = input("""This message will be destroyed.
 Press enter to return to the main menu.""")
         # Normally the following would be left off, but is included so no
@@ -73,8 +77,8 @@ def decryption(cipher):
     """ This function takes a chiper class and returns a properly formated
     encrypted string using the class's encryption and get_input function """
     if cipher:
-        message = cipher.get_input(encrypt=False)
-        print(cipher.decryption(message))
+        message, keyword = cipher.get_input(encrypt=False)
+        print(cipher.decryption(message, keyword))
         continue_prompt = input("""This message will be destroyed.
 Press enter to return to the main menu.""")
         # Normally the following would be left off, but is included so no
@@ -88,7 +92,7 @@ def main(clear_screen=True):
     It prompts the user to select a cipher and to encrypt or decrypt.
     The user is also allowed to quit and end the script."""
 
-    cipher_list = ['ADFGVX', 'Atbash', 'Bifid', 'Rail Fence']
+    cipher_list = ['Atbash', 'Keyword', 'Rail Fence']
 
     while True:
         # This clears the screen on every instance of the loop

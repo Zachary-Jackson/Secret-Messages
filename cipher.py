@@ -10,6 +10,9 @@ class Cipher:
         """This method initalizes Atbash"""
         self.letters = string.ascii_uppercase
         self.letters_reversed = self.letters[::-1]
+        self.letters_list = [letter for letter in self.letters]
+        self.letters_reversed_list = ([letter for letter
+                                      in self.letters_reversed])
 
     @classmethod
     def clear(cls):
@@ -27,7 +30,8 @@ class Cipher:
         message = input("Please enter the message you want to {}.\n".format(
                         message_word) +
                         "Use only standard letters and no numbers.  ")
-        return message
+        keyword = None
+        return message, keyword
 
     @classmethod
     def whitespace_remover(cls, text):

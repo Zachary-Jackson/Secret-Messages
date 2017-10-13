@@ -29,7 +29,7 @@ class RailFence(Cipher):
                 output.append(letter)
         return ''.join(output)
 
-    def encryption(self, text_data):
+    def encryption(self, text_data, *args, **kwargs):
         """This method returns the uppercased result from the encryption"""
         # Creates a list format of text
         text_data = self.whitespace_remover(text_data)
@@ -76,7 +76,7 @@ class RailFence(Cipher):
         output = self.character_seperator(output)
         return output
 
-    def decryption(self, text_data):
+    def decryption(self, text_data, *args, **kwargs):
         """This method returns the uppercased result from the decryption"""
         text_data = self.whitespace_remover(text_data)
         length = len(text_data)
@@ -108,28 +108,46 @@ class RailFence(Cipher):
             len_text_3 -= 1
 
         # This section reverts text 1, 2, and 3 into the pre cipher stage
+        #
+        # For help on how this works all three of the rails are
+        # compared at the same time going through the number of letters
+        # (counter) one by one and finding the letter on the proper rail in
+        # a zig-zag pattern.
+        #
+        # 1) W . . . E . . . C . . . R . . . L . . . T . . . E
+        # 2) . E . R . D . S . O . E . E . F . E . A . O . C .
+        # 3) . . A . . . I . . . V . . . D . . . E . . . N . .
+        #
+        # This becomes WE ARE DISCOVERED FLEE AT ONCE without the spaces
+        #
+        # Note that text, text_2 and text_3 do not have spaces or '.'s
+        # in them the above example is just to help with understanding
+        # what is happening.
+
         output = []
         counter = 0
         sub_counter = 0
-        # The reverse_counter switches the direction of sub_counter
-        reverse_counter = 0
+        # The reverse_sub_counter switches the direction of sub_counter
+        # 0 means the sub_counter goes down a rail.  i.e 1) to 2)
+        # 1 means the sub_counter goes up a rail.  i.e 3) to 2)
+        reverse_sub_counter = 0
         while counter < length:
             if sub_counter == 0:
                 output.append(text.pop(0))
                 counter += 1
                 sub_counter += 1
-                reverse_counter = 0
+                reverse_sub_counter = 0
             elif sub_counter == 1:
                 output.append(text_2.pop(0))
                 counter += 1
-                if reverse_counter == 0:
+                if reverse_sub_counter == 0:
                     sub_counter += 1
                 else:
                     sub_counter -= 1
             else:
                 output.append(text_3.pop(0))
                 counter += 1
-                reverse_counter = 1
+                reverse_sub_counter = 1
                 sub_counter -= 1
 
         return self.character_seperator(output)

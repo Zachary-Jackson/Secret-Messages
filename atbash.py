@@ -2,7 +2,7 @@ from cipher import Cipher
 
 
 class Atbash(Cipher):
-    def encryption(self, text):
+    def encryption(self, text, *args, **kwargs):
         """This method returns the uppercased result from the encryption"""
         temp_output = []
         text = text.upper()
@@ -15,6 +15,6 @@ class Atbash(Cipher):
         output = Cipher
         return output.character_seperator(temp_output)
 
-    def decryption(self, text):
+    def decryption(self, text, *args, **kwargs):
         """This method returns the uppercased result from the decryption"""
         return self.encryption(text)
