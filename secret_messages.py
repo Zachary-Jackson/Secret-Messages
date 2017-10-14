@@ -15,10 +15,10 @@ def clear():
 def welcome():
     """This function welcomes the user to the program"""
     clear()
-    print("""Welcome to the secret messages application!
-The encryption and decryption of messages in this application may not
-be entirely secure and could be found out by others.
-Use the program at your own risk
+    print("""      Welcome to the secret messages application!
+ The encryption and decryption of messages in this application may not
+ be entirely secure and could be found out by others.
+ Use the program at your own risk
 """)
     main(clear_screen=False)
 
@@ -41,13 +41,13 @@ def cipher_selector(cipher_list):
         cipher = input("""Which cipher do you want to use?
         Enter r to return to the main menu.  """).lower()
         # This section creates the chiper class to return
-        if cipher == 'atbash':
+        if cipher == 'atbash' or cipher =='a':
             cipher = Atbash()
             break
         elif cipher == 'railfence' or cipher == 'rail fence':
             cipher = RailFence()
             break
-        elif cipher == 'keyword':
+        elif cipher == 'keyword' or cipher =='k':
             cipher = KeywordCipher()
             break
         elif cipher == 'return' or cipher == 'r' or cipher == 'q':
@@ -59,32 +59,35 @@ def cipher_selector(cipher_list):
     return(cipher)
 
 
-def encryption(cipher):
+def encryption(cipher, pad_lock):
     """ This function takes a cipher class and returns a properly formated
     encrypted string using the class's encryption and get_input function """
-    if cipher:
-        message, keyword = cipher.get_input()
+    message, keyword = cipher.get_input()
+    output = cipher.encryption(message, keyword)
+    if pad_lock:
+        pad = input("What one time key do you want to use?")
+        print(cipher.one_time_key_encryption(output, pad))
+    else:
         print(cipher.encryption(message, keyword))
-        continue_prompt = input("""This message will be destroyed.
+    continue_prompt = input("""This message will be destroyed.
 Press enter to return to the main menu.""")
-        # Normally the following would be left off, but is included so no
-        # PEP8 problems get presented
-        if continue_prompt:
-            return None
+    # Normally the following would be left off, but is included so no
+    # PEP8 problems get presented
+    if continue_prompt:
+        return None
 
 
-def decryption(cipher):
+def decryption(cipher, pad_lock):
     """ This function takes a chiper class and returns a properly formated
     encrypted string using the class's encryption and get_input function """
-    if cipher:
-        message, keyword = cipher.get_input(encrypt=False)
-        print(cipher.decryption(message, keyword))
-        continue_prompt = input("""This message will be destroyed.
+    message, keyword = cipher.get_input(encrypt=False)
+    print(cipher.decryption(message, keyword))
+    continue_prompt = input("""This message will be destroyed.
 Press enter to return to the main menu.""")
-        # Normally the following would be left off, but is included so no
-        # PEP8 problems get presented
-        if continue_prompt:
-            return None
+    # Normally the following would be left off, but is included so no
+    # PEP8 problems get presented
+    if continue_prompt:
+        return None
 
 
 def main(clear_screen=True):
@@ -93,6 +96,7 @@ def main(clear_screen=True):
     The user is also allowed to quit and end the script."""
 
     cipher_list = ['Atbash', 'Keyword', 'Rail Fence']
+    one_time_pad = True
 
     while True:
         # This clears the screen on every instance of the loop
@@ -104,20 +108,31 @@ def main(clear_screen=True):
 
         # Prints out a menu prompting the user to select a cipher or quit
         # Asks the user if the cipher is going to encrypt or decrypt
-        menu_selector = input(
-         """Would you like to encrypt or decrypt a message?
-Enter view to see the ciphers this program has.
-Enter quit or q to end the program. """).lower()
+        print("""    Would you like to encrypt 'e' or decrypt 'd' a message?
+ Enter 'view' or 'v' to see the ciphers this program has.
+ Enter 'pad lock' or 'p' to turn on or off the one time key encryption.""")
+        if one_time_pad == True:
+            print(" The one time pad is activated.")
+        else:
+            print(" You currently have the one time pad disabled")
+        menu_selector = input("\n Enter 'quit' or 'q' to end the "
+                         " program.  ").lower()
+
 
         # Sends the user to an encryption or decryption function
         if menu_selector == 'encrypt' or menu_selector == 'e':
-            encryption(cipher_selector(cipher_list))
+            encryption(cipher_selector(cipher_list), one_time_pad)
         elif menu_selector == 'decrypt' or menu_selector == 'd':
-            decryption(cipher_selector(cipher_list))
+            decryption(cipher_selector(cipher_list), one_time_pad)
         elif menu_selector == 'view' or menu_selector == 'v':
             clear()
             cipher_viewer(cipher_list)
             clear_screen = False
+        elif menu_selector == 'pad lock' or menu_selector == 'p':
+            if one_time_pad == True:
+                one_time_pad = False
+            else:
+                one_time_pad = True
         elif(menu_selector) == 'quit' or menu_selector == 'q':
             break
 
