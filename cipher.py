@@ -108,7 +108,7 @@ class Cipher:
         while index_counter < length:
             try:
                 combined_numbers.append(numbers_from_text[index_counter] +
-                numbers_from_pad[index_counter])
+                 numbers_from_pad[index_counter])
             except IndexError:
                 combined_numbers.append(numbers_from_text[index_counter])
                 index_counter += 1
@@ -124,14 +124,8 @@ class Cipher:
             else:
                 index_counter += 1
 
-
-                index_counter += 1
         # This restructures combined_numbers into a string to return
-        import pdb; pdb.set_trace()
         output = []
         for number in combined_numbers:
             output.append(alphabet_list[number])
         return ''.join(output)
-
-zach = Cipher
-print(zach.one_time_key_encryption('sadf', 'fds'))
