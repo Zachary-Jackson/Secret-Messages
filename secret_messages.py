@@ -41,17 +41,18 @@ def cipher_selector(cipher_list):
         cipher = input("""Which cipher do you want to use?
         Enter r to return to the main menu.  """).lower()
         # This section creates the chiper class to return
-        if cipher == 'atbash' or cipher =='a':
+        if cipher == 'atbash':
             cipher = Atbash()
             break
         elif cipher == 'railfence' or cipher == 'rail fence':
             cipher = RailFence()
             break
-        elif cipher == 'keyword' or cipher =='k':
+        elif cipher == 'keyword':
             cipher = KeywordCipher()
             break
         elif cipher == 'return' or cipher == 'r' or cipher == 'q':
-            return False
+            cipher = False
+            return cipher
         else:
             clear()
             print("That is not a valid option.\n")
@@ -62,32 +63,41 @@ def cipher_selector(cipher_list):
 def encryption(cipher, pad_lock):
     """ This function takes a cipher class and returns a properly formated
     encrypted string using the class's encryption and get_input function """
-    message, keyword = cipher.get_input()
-    output = cipher.encryption(message, keyword)
-    if pad_lock:
-        pad = input("What one time key do you want to use?")
-        print(cipher.one_time_key_encryption(output, pad))
-    else:
-        print(cipher.encryption(message, keyword))
-    continue_prompt = input("""This message will be destroyed.
-Press enter to return to the main menu.""")
-    # Normally the following would be left off, but is included so no
-    # PEP8 problems get presented
-    if continue_prompt:
-        return None
+    if cipher:
+        message, keyword = cipher.get_input()
+        if pad_lock:
+            pad = input("\n What one time key do you want to use?\n"
+             " The pad can include letters and numbers.   ")
+            output = cipher.encryption(message, keyword)
+            print('\n ' + str(cipher.one_time_key_encryption(output, pad)))
+        else:
+            print('\n' + str(cipher.encryption(message, keyword)))
+        continue_prompt = input("""\n This message will be destroyed.
+    Press enter to return to the main menu.""")
+        # Normally the following would be left off, but is included so no
+        # PEP8 problems get presented
+        if continue_prompt:
+            return None
 
 
 def decryption(cipher, pad_lock):
     """ This function takes a chiper class and returns a properly formated
     encrypted string using the class's encryption and get_input function """
-    message, keyword = cipher.get_input(encrypt=False)
-    print(cipher.decryption(message, keyword))
-    continue_prompt = input("""This message will be destroyed.
-Press enter to return to the main menu.""")
-    # Normally the following would be left off, but is included so no
-    # PEP8 problems get presented
-    if continue_prompt:
-        return None
+    if cipher:
+        message, keyword = cipher.get_input(encrypt=False)
+        if pad_lock:
+            pad = input("\n What one time key do you want to use?\n"
+             " The pad can include letters and numbers.   ")
+            output = cipher.one_time_key_decryption(message, pad)
+            print('\n ' + str(cipher.decryption(output, keyword)))
+        else:
+            print('\n' + str(cipher.decryption(message, keyword)))
+        continue_prompt = input("""\n This message will be destroyed.
+    Press enter to return to the main menu.""")
+        # Normally the following would be left off, but is included so no
+        # PEP8 problems get presented
+        if continue_prompt:
+            return None
 
 
 def main(clear_screen=True):

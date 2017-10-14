@@ -49,7 +49,7 @@ class KeywordCipher(Cipher):
                      # This is the index value in text corresponding to letter
                      alphabet_list.index(item)])
 
-        return output
+        return ''.join(output)
 
     def decryption(self, text, keyword, *args, **kwargs):
         """This method returns the uppercased result from the decryption"""
@@ -70,7 +70,3 @@ class KeywordCipher(Cipher):
                      new_alphabet_list.index(item)])
 
         return output
-
-
-zach = KeywordCipher()
-print(zach.decryption('dghvenpstbmihvtl', 'kryptos'))

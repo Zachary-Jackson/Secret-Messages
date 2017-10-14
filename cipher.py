@@ -98,9 +98,19 @@ class Cipher:
                     numbers_from_text.append(alphabet_list.index(item))
         numbers_from_pad = []
         for letter in pad_key:
+            try_continue = True
             for item in alphabet_list:
                 if letter == item:
                     numbers_from_pad.append(alphabet_list.index(item))
+                else:
+                    if try_continue == True:
+                        try:
+                            temp_letter = int(letter)
+                        except ValueError:
+                            pass
+                        else:
+                            numbers_from_pad.append(temp_letter)
+                            try_continue = False
         # This combines both of the numbers from text and the pad key
         combined_numbers = []
         length = len(text)
@@ -118,8 +128,68 @@ class Cipher:
         # it gets rolled back by 26 numbers
         index_counter = 0
         for number in combined_numbers:
-            if number > 26:
+            if number > 25:
                 combined_numbers[index_counter] = number - 26
+                index_counter += 1
+            else:
+                index_counter += 1
+
+        # This restructures combined_numbers into a string to return
+        output = []
+        for number in combined_numbers:
+            output.append(alphabet_list[number])
+        return ''.join(output)
+
+    @classmethod
+    def one_time_key_decryption(cls, text, pad_key, *args, **kwargs):
+        """This takes a single string and a pad_key and
+        returns an encrypted message using the one time key
+        encryption method."""
+        alphabet_list = [letter for letter in string.ascii_uppercase]
+        text = cls.whitespace_remover(text).upper()
+        pad_key = cls.whitespace_remover(pad_key).upper()
+
+        # This portion creates a list of numbers based on the index
+        # values for each letter in text and then pad_key.
+        numbers_from_text = []
+        for letter in text:
+            for item in alphabet_list:
+                if letter == item:
+                    numbers_from_text.append(alphabet_list.index(item))
+        numbers_from_pad = []
+        for letter in pad_key:
+            try_continue = True
+            for item in alphabet_list:
+                if letter == item:
+                    numbers_from_pad.append(alphabet_list.index(item))
+                else:
+                    if try_continue == True:
+                        try:
+                            temp_letter = int(letter)
+                        except ValueError:
+                            pass
+                        else:
+                            numbers_from_pad.append(temp_letter)
+                            try_continue = False
+        # This combines both of the numbers from text and the pad key
+        combined_numbers = []
+        length = len(text)
+        index_counter = 0
+        while index_counter < length:
+            try:
+                combined_numbers.append(numbers_from_text[index_counter] -
+                 numbers_from_pad[index_counter])
+            except IndexError:
+                combined_numbers.append(numbers_from_text[index_counter])
+                index_counter += 1
+            else:
+                index_counter += 1
+        # This section insures no number is above 26 and if it is
+        # it gets rolled back by 26 numbers
+        index_counter = 0
+        for number in combined_numbers:
+            if number < 0:
+                combined_numbers[index_counter] = number + 26
                 index_counter += 1
             else:
                 index_counter += 1
