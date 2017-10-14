@@ -30,7 +30,8 @@ class RailFence(Cipher):
         return ''.join(output)
 
     def encryption(self, text_data, *args, **kwargs):
-        """This method returns the uppercased result from the encryption"""
+        """This method takes a string of text and returns the uppercased
+        result from the encryption in the form of a single string."""
         # Creates a list format of text
         text_data = self.whitespace_remover(text_data)
         text = []
@@ -77,7 +78,8 @@ class RailFence(Cipher):
         return output
 
     def decryption(self, text_data, *args, **kwargs):
-        """This method returns the uppercased result from the decryption"""
+        """This method takes a string of text and returns the uppercased
+        result from the decryption in the form of a single string."""
         text_data = self.whitespace_remover(text_data)
         length = len(text_data)
         temp_text = []

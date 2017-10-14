@@ -103,7 +103,7 @@ class Cipher:
                 if letter == item:
                     numbers_from_pad.append(alphabet_list.index(item))
                 else:
-                    if try_continue == True:
+                    if try_continue is True:
                         try:
                             temp_letter = int(letter)
                         except ValueError:
@@ -118,7 +118,7 @@ class Cipher:
         while index_counter < length:
             try:
                 combined_numbers.append(numbers_from_text[index_counter] +
-                 numbers_from_pad[index_counter])
+                                        numbers_from_pad[index_counter])
             except IndexError:
                 combined_numbers.append(numbers_from_text[index_counter])
                 index_counter += 1
@@ -144,7 +144,7 @@ class Cipher:
     def one_time_key_decryption(cls, text, pad_key, *args, **kwargs):
         """This takes a single string and a pad_key and
         returns an encrypted message using the one time key
-        encryption method."""
+        decryption method."""
         alphabet_list = [letter for letter in string.ascii_uppercase]
         text = cls.whitespace_remover(text).upper()
         pad_key = cls.whitespace_remover(pad_key).upper()
@@ -163,7 +163,7 @@ class Cipher:
                 if letter == item:
                     numbers_from_pad.append(alphabet_list.index(item))
                 else:
-                    if try_continue == True:
+                    if try_continue is True:
                         try:
                             temp_letter = int(letter)
                         except ValueError:
@@ -178,7 +178,7 @@ class Cipher:
         while index_counter < length:
             try:
                 combined_numbers.append(numbers_from_text[index_counter] -
-                 numbers_from_pad[index_counter])
+                                        numbers_from_pad[index_counter])
             except IndexError:
                 combined_numbers.append(numbers_from_text[index_counter])
                 index_counter += 1

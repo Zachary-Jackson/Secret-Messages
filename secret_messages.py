@@ -25,7 +25,7 @@ def welcome():
 
 def cipher_viewer(cipher_list):
     """This function shows the user all of the ciphers the secret_messages
-    application contains"""
+    application contains."""
     print("Here is a list of all the ciphers that can be used.\n" +
           "{}\n".format(cipher_list))
 
@@ -67,7 +67,7 @@ def encryption(cipher, pad_lock):
         message, keyword = cipher.get_input()
         if pad_lock:
             pad = input("\n What one time key do you want to use?\n"
-             " The pad can include letters and numbers.   ")
+                        " The pad can include letters and numbers.   ")
             output = cipher.encryption(message, keyword)
             print('\n ' + str(cipher.one_time_key_encryption(output, pad)))
         else:
@@ -82,12 +82,12 @@ def encryption(cipher, pad_lock):
 
 def decryption(cipher, pad_lock):
     """ This function takes a chiper class and returns a properly formated
-    encrypted string using the class's encryption and get_input function """
+    encrypted string using the class's decryption and get_input function """
     if cipher:
         message, keyword = cipher.get_input(encrypt=False)
         if pad_lock:
             pad = input("\n What one time key do you want to use?\n"
-             " The pad can include letters and numbers.   ")
+                        " The pad can include letters and numbers.   ")
             output = cipher.one_time_key_decryption(message, pad)
             print('\n ' + str(cipher.decryption(output, keyword)))
         else:
@@ -121,13 +121,12 @@ def main(clear_screen=True):
         print("""    Would you like to encrypt 'e' or decrypt 'd' a message?
  Enter 'view' or 'v' to see the ciphers this program has.
  Enter 'pad lock' or 'p' to turn on or off the one time key encryption.""")
-        if one_time_pad == True:
+        if one_time_pad is True:
             print(" The one time pad is activated.")
         else:
             print(" You currently have the one time pad disabled")
         menu_selector = input("\n Enter 'quit' or 'q' to end the "
-                         " program.  ").lower()
-
+                              " program.  ").lower()
 
         # Sends the user to an encryption or decryption function
         if menu_selector == 'encrypt' or menu_selector == 'e':
@@ -139,7 +138,7 @@ def main(clear_screen=True):
             cipher_viewer(cipher_list)
             clear_screen = False
         elif menu_selector == 'pad lock' or menu_selector == 'p':
-            if one_time_pad == True:
+            if one_time_pad is True:
                 one_time_pad = False
             else:
                 one_time_pad = True
