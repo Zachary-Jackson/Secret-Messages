@@ -34,15 +34,49 @@ class Cipher:
         return message, keyword
 
     @classmethod
-    def whitespace_remover(cls, text):
-        """This method takes a string and removes the whitespaces and
-        punctuation before rejoining the string without whitespaces or
-        punctuation and returning it. """
-        punctuation = [' ', '.', '!', '?', ';', '@', ',', '$']
+    def character_encryptor(cls, text):
+        """This method takes a string and converts the non letter portions
+        of the string into other encrypted characters. """
+        letters = string.ascii_letters
         new_text = []
         for letter in text:
-            if letter not in punctuation:
+            if letter in letters:
                 new_text.append(letter)
+            elif letter == ' ':
+                new_text.append('&')
+            elif letter == '.':
+                new_text.append('*')
+            elif letter == '!':
+                new_text.append('%')
+            elif letter == '?':
+                new_text.append('#')
+            elif letter == "'":
+                new_text.append('=')
+            elif letter == ',':
+                new_text.append('@')
+        return ''.join(new_text)
+
+    @classmethod
+    def character_decryptor(cls, text):
+        """This method takes a string and unconverts the non letter portions
+        of the string into turns them into unincrypted characters."""
+        letters = string.ascii_letters
+        new_text = []
+        for letter in text:
+            if letter in letters:
+                new_text.append(letter)
+            elif letter == '&':
+                new_text.append(' ')
+            elif letter == '*':
+                new_text.append('.')
+            elif letter == '%':
+                new_text.append('!')
+            elif letter == '#':
+                new_text.append('?')
+            elif letter == '=':
+                new_text.append("'")
+            elif letter == '@':
+                new_text.append(',')
         return ''.join(new_text)
 
     @classmethod
@@ -75,8 +109,19 @@ class Cipher:
                 parsed_output = []
                 sub_counter = 0
             sub_counter += 1
-        if parsed_output:
-            output.append(''.join(parsed_output))
+        # This section adds junk to the end of the the parsed_output if
+        # parsed_output is not five characters long.
+        counter = 0
+        while len(parsed_output) < 5:
+            if counter == 0:
+                parsed_output.append('~')
+                counter += 1
+            elif counter == 1:
+                parsed_output.append('>')
+                counter += 1
+            elif counter == 2:
+                parsed_output.append('+')
+        output.append(''.join(parsed_output))
 
         return ' '.join(output)
 
