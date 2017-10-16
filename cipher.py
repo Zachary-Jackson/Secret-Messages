@@ -54,6 +54,8 @@ class Cipher:
                 new_text.append('=')
             elif letter == ',':
                 new_text.append('@')
+            elif letter == '"':
+                new_text.append(']')
         return ''.join(new_text)
 
     @classmethod
@@ -77,6 +79,8 @@ class Cipher:
                 new_text.append("'")
             elif letter == '@':
                 new_text.append(',')
+            elif letter == ']':
+                new_text.append('"')
         return ''.join(new_text)
 
     @classmethod

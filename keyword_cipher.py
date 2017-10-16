@@ -35,7 +35,7 @@ class KeywordCipher(Cipher):
         result from the encryption in the form of a single string."""
         # letters_list is renamed alphabet_list for easier readability
         alphabet_list = self.letters_list
-        text = self.whitespace_remover(text).upper()
+        text = self.character_encryptor(text).upper()
         output = []
 
         new_alphabet_list = self.new_alphabet_from_keyword(keyword)
@@ -44,19 +44,23 @@ class KeywordCipher(Cipher):
         # This compares the text in keyword to new_alphabet_list
         # and makes a new string based on the comparison
         for letter in text:
+            found = False
             for item in alphabet_list:
                 if letter == item:
                     output.append(new_alphabet_list[
                      # This is the index value in text corresponding to letter
                      alphabet_list.index(item)])
+                    found = True
+            if found is False:
+                output.append(letter)
 
-        return self.character_seperator(output)
+        return self.character_seperator(''.join(output))
 
     def decryption(self, text, keyword, *args, **kwargs):
         """This method takes a string of text and returns the uppercased
         result from the decryption in the form of a single string."""
         alphabet_list = self.letters_list
-        text = self.whitespace_remover(text).upper()
+        text = self.character_decryptor(text).upper()
         output = []
 
         new_alphabet_list = self.new_alphabet_from_keyword(keyword)
@@ -65,10 +69,14 @@ class KeywordCipher(Cipher):
         # This compares the text in new_alphabet_list to keyword
         # and makes a new string based on the comparison
         for letter in text:
+            found = False
             for item in new_alphabet_list:
                 if letter == item:
                     output.append(alphabet_list[
                      # This is the index value in text corresponding to letter
                      new_alphabet_list.index(item)])
+                    found = True
+            if found is False:
+                output.append(letter)
 
-        return self.character_seperator(output)
+        return ''.join(output)
