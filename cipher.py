@@ -78,7 +78,7 @@ class Cipher:
         if parsed_output:
             output.append(''.join(parsed_output))
 
-        return output
+        return ' '.join(output)
 
     @classmethod
     def one_time_key_encryption(cls, text, pad_key, *args, **kwargs):
@@ -138,7 +138,7 @@ class Cipher:
         output = []
         for number in combined_numbers:
             output.append(alphabet_list[number])
-        return ''.join(output)
+        return cls.character_seperator(output)
 
     @classmethod
     def one_time_key_decryption(cls, text, pad_key, *args, **kwargs):
@@ -198,4 +198,4 @@ class Cipher:
         output = []
         for number in combined_numbers:
             output.append(alphabet_list[number])
-        return ''.join(output)
+        return cls.character_seperator(output)

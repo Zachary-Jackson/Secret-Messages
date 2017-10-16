@@ -50,7 +50,7 @@ class KeywordCipher(Cipher):
                      # This is the index value in text corresponding to letter
                      alphabet_list.index(item)])
 
-        return ''.join(output)
+        return self.character_seperator(output)
 
     def decryption(self, text, keyword, *args, **kwargs):
         """This method takes a string of text and returns the uppercased
@@ -71,4 +71,4 @@ class KeywordCipher(Cipher):
                      # This is the index value in text corresponding to letter
                      new_alphabet_list.index(item)])
 
-        return output
+        return self.character_seperator(output)
