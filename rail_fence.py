@@ -33,7 +33,7 @@ class RailFence(Cipher):
         """This method takes a string of text and returns the uppercased
         result from the encryption in the form of a single string."""
         # Creates a list format of text
-        text_data = self.whitespace_remover(text_data)
+        text_data = self.character_encryptor(text_data)
         text = []
         for letter in text_data:
             text.append(letter)
@@ -80,7 +80,7 @@ class RailFence(Cipher):
     def decryption(self, text_data, *args, **kwargs):
         """This method takes a string of text and returns the uppercased
         result from the decryption in the form of a single string."""
-        text_data = self.whitespace_remover(text_data)
+        text_data = self.character_decryptor(text_data)
         length = len(text_data)
         temp_text = []
 
@@ -152,4 +152,4 @@ class RailFence(Cipher):
                 reverse_sub_counter = 1
                 sub_counter -= 1
 
-        return self.character_seperator(output)
+        return ''.join(output)
