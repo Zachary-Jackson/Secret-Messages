@@ -59,7 +59,7 @@ class Cipher:
             elif letter == "'":
                 new_text.append('^')
             elif letter == ';':
-                new_letter.append('$')
+                new_text.append('$')
         return ''.join(new_text)
 
     @classmethod
@@ -181,7 +181,7 @@ class Cipher:
         pad_index_counter = 0
         while text_index_counter < length:
             try:
-                combined_numbers.append(numbers_from_text[text_index_counter]+
+                combined_numbers.append(numbers_from_text[text_index_counter] +
                                         numbers_from_pad[pad_index_counter])
             except IndexError:
                 # This allows for a smaller pad than text variable
@@ -222,7 +222,6 @@ class Cipher:
         returns an encrypted message using the one time key
         decryption method."""
         alphabet_list = [letter for letter in string.ascii_uppercase]
-        text = cls.character_decryptor(text).upper()
         pad_key = cls.character_decryptor(pad_key).upper()
 
         # This portion creates a list of numbers based on the index
@@ -260,7 +259,7 @@ class Cipher:
         pad_index_counter = 0
         while text_index_counter < length:
             try:
-                combined_numbers.append(numbers_from_text[text_index_counter]-
+                combined_numbers.append(numbers_from_text[text_index_counter] -
                                         numbers_from_pad[pad_index_counter])
             except IndexError:
                 combined_numbers.append(numbers_from_text[text_index_counter])
@@ -278,6 +277,8 @@ class Cipher:
             try:
                 if number < 0:
                     combined_numbers[index_counter] = number + 26
+                    index_counter += 1
+                else:
                     index_counter += 1
             except TypeError:
                 index_counter += 1
