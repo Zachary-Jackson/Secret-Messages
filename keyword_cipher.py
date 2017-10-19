@@ -4,6 +4,9 @@ from cipher import Cipher
 
 
 class KeywordCipher(Cipher):
+    # I do not know where this will go on other people's computers as this
+    # is a relative path. On my computer it goes to
+    # C:\Users\{username}\Documents\Python on Windows
     def get_input(self, encrypt=True, *args, **kwargs):
         """This gets an input from the user and returns a raw text file
         and a keyword file."""
@@ -17,6 +20,14 @@ class KeywordCipher(Cipher):
                         "Use only standard letters and no numbers.  ")
         keyword = input("What keyword do you want to use?  ")
         return message, keyword
+
+    def get_keyword(self, *args, **kwargs):
+        """ This gets an input from the user and returns the keyword for
+        the keyword cipher. It presumes that the message has been gotten
+        elsewhere."""
+        print("\n\t You are using the Keyword cipher.")
+        keyword = input(" What keyword do you want to use?  ")
+        return keyword
 
     def new_alphabet_from_keyword(self, keyword):
         """This method takes a keyword and creates a "new" alphabet

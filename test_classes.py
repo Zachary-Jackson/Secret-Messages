@@ -5,6 +5,7 @@ from cipher import Cipher
 from keyword_cipher import KeywordCipher
 from rail_fence import RailFence
 
+
 class AtbashTestCase(unittest.TestCase):
     """ Tests the encryption/decryption for Atbash. """
 
@@ -32,6 +33,7 @@ class AtbashTestCase(unittest.TestCase):
         test_3 = atbash.decryption('GSVB& ZIV&X OLHV~')
         self.assertEqual(test_3, 'THEY ARE CLOSE')
 
+
 class KeywordCipherTestCase(unittest.TestCase):
     """ Tests the encryption/decryption for KeywordCipher. """
 
@@ -48,23 +50,11 @@ class KeywordCipherTestCase(unittest.TestCase):
         """ Does the decryption work? """
         keyword_test = KeywordCipher()
         test_1 = keyword_test.decryption('DGHVE TPST& BM&IH VTL~>',
-                                        'kryptos')
+                                         'kryptos')
         self.assertEqual(test_1, 'KNOWLEDGE IS POWER')
 
         test_2 = keyword_test.decryption('SFBY& TPB&E JMQB~', 'tree')
         self.assertEqual(test_2, 'THEY ARE CLOSE')
-
-    def test_en_decryption_to_cipher(self):
-        """ This tests the encryption and decryption to Cipher. """
-        keyword = KeywordCipher()
-        # This is done above so im not asserting it.
-        test_2 = keyword.encryption('They are close', 'tree')
-        # test_2 = SFBY& TPB&E JMQB~
-        encryption = keyword.one_time_key_encryption(test_2, 'test')
-        #self.assertEqual(encryption, '')
-        decryption = keyword.one_time_key_decryption(encryption, 'test')
-        #self.assertEqual(decryption, test_2)
-        #self.assertEqual(decryption, '')
 
 
 class RailFenceTestCase(unittest.TestCase):
@@ -89,11 +79,12 @@ class RailFenceTestCase(unittest.TestCase):
         self.assertEqual(test_1, 'WEAREDISCOVEREDFLEEATONCE')
 
         test_2 = railfence.decryption('WRIVD LANEA EDSOE E*FE&' +
-                                       ' TOC&& CR&E& E~>++')
+                                      ' TOC&& CR&E& E~>++')
         self.assertEqual(test_2, 'WE ARE DISCOVERED. FLEE AT ONCE')
 
         test_3 = railfence.decryption('T&&SH YAECO EERL~')
         self.assertEqual(test_3, 'THEY ARE CLOSE')
+
 
 class OneTimePadTestCase(unittest.TestCase):
     """ Tests the encryption/decryption for the one time pad. """
@@ -103,7 +94,6 @@ class OneTimePadTestCase(unittest.TestCase):
         cipher = Cipher()
         test_1 = cipher.one_time_key_encryption('Hello', 'xmckl')
         self.assertEqual(test_1, 'EQNVZ ')
-
 
     def test_decryption(self):
         """ Does the decryption work? """

@@ -3,6 +3,7 @@ import os
 from atbash import Atbash
 from rail_fence import RailFence
 from keyword_cipher import KeywordCipher
+from output_to_text import OutputToText
 
 # This function calls on the proper class for the requested cipher
 
@@ -60,7 +61,7 @@ def cipher_selector(cipher_list):
     return(cipher)
 
 
-def encryption(cipher, pad_lock):
+def encryption(cipher, pad_lock, output_to_file):
     """ This function takes a cipher class and returns a properly formated
     encrypted string using the class's encryption and get_input function """
     if cipher:
@@ -69,22 +70,44 @@ def encryption(cipher, pad_lock):
             pad = input("\n What one time key do you want to use?\n"
                         " The pad can include letters and numbers.   ")
             output = cipher.encryption(message, keyword)
-            print('\n ' + str(cipher.one_time_key_encryption(output, pad)))
+            output = cipher.one_time_key_encryption(output, pad)
+            print('\n ' + str())
         else:
-            print('\n' + str(cipher.encryption(message, keyword)))
-        continue_prompt = input("""\n This message will be destroyed.
-    Press enter to return to the main menu.""")
+            output = cipher.encryption(message, keyword)
+            print('\n' + str(output))
+        if output_to_file:
+            text_output = OutputToText()
+            text_output.write(output)
+            print(" This message will be saved in temp_text.txt")
+            continue_prompt = input('Press enter to return to the '
+                                    'main menu.')
+        else:
+            continue_prompt = input(""" This message will be destroyed.
+        Press enter to return to the main menu.""")
         # Normally the following would be left off, but is included so no
         # PEP8 problems get presented
         if continue_prompt:
             return None
 
 
-def decryption(cipher, pad_lock):
+def decryption(cipher, pad_lock, output_to_file):
     """ This function takes a chiper class and returns a properly formated
     encrypted string using the class's decryption and get_input function """
     if cipher:
-        message, keyword = cipher.get_input(encrypt=False)
+        if output_to_file:
+            text_output = OutputToText()
+            message = text_output.get()
+            if message:
+                print("\n We have gotten your encrypted message from"
+                      "'temp_text.txt'")
+                try:
+                    keyword = cipher.get_keyword()
+                except AttributeError:
+                    keyword = False
+            else:
+                message, keyword = cipher.get_input(encrypt=False)
+        else:
+            message, keyword = cipher.get_input(encrypt=False)
         if pad_lock:
             pad = input("\n What one time key do you want to use?\n"
                         " The pad can include letters and numbers.   ")
@@ -107,6 +130,7 @@ def main(clear_screen=True):
 
     cipher_list = ['Atbash', 'Keyword', 'Rail Fence']
     one_time_pad = True
+    output_to_file = True
 
     while True:
         # This clears the screen on every instance of the loop
@@ -125,14 +149,23 @@ def main(clear_screen=True):
             print(" The one time pad is activated.")
         else:
             print(" You currently have the one time pad disabled")
+        if output_to_file:
+            print('\n You are currently outputing the encryption/decryption'
+                  ' to a file.')
+        else:
+            print('\n The encryption/decryption output to file'
+                  ' had been disabled.')
+        print(" Enter 'output' or 'o' to turn on or off the output to file.")
         menu_selector = input("\n Enter 'quit' or 'q' to end the "
                               " program.  ").lower()
 
         # Sends the user to an encryption or decryption function
         if menu_selector == 'encrypt' or menu_selector == 'e':
-            encryption(cipher_selector(cipher_list), one_time_pad)
+            encryption(cipher_selector(cipher_list), one_time_pad,
+                       output_to_file)
         elif menu_selector == 'decrypt' or menu_selector == 'd':
-            decryption(cipher_selector(cipher_list), one_time_pad)
+            decryption(cipher_selector(cipher_list), one_time_pad,
+                       output_to_file)
         elif menu_selector == 'view' or menu_selector == 'v':
             clear()
             cipher_viewer(cipher_list)
@@ -142,6 +175,11 @@ def main(clear_screen=True):
                 one_time_pad = False
             else:
                 one_time_pad = True
+        elif menu_selector == 'output' or menu_selector == 'o':
+            if output_to_file:
+                output_to_file = False
+            else:
+                output_to_file = True
         elif(menu_selector) == 'quit' or menu_selector == 'q':
             break
 
