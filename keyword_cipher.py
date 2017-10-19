@@ -24,11 +24,16 @@ class KeywordCipher(Cipher):
         string of the alphabet"""
         copy_alphabet = copy.copy((self.letters_list))
         keyword_list = [letter.upper() for letter in keyword]
+        used_letters = []
         for letter in keyword_list:
-            for item in copy_alphabet:
-                if letter == item:
-                    copy_alphabet.remove(item)
-        return ''.join(keyword_list + copy_alphabet)
+            if [letter] in used_letters:
+                continue
+            else:
+                for item in copy_alphabet:
+                    if letter == item:
+                        copy_alphabet.remove(item)
+                        used_letters.append(letter)
+        return ''.join(used_letters + copy_alphabet)
 
     def encryption(self, text, keyword, *args, **kwargs):
         """This method takes a string of text and returns the uppercased
@@ -78,5 +83,4 @@ class KeywordCipher(Cipher):
                     found = True
             if found is False:
                 output.append(letter)
-
         return ''.join(output)

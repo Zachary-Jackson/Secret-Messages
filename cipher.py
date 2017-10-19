@@ -134,7 +134,6 @@ class Cipher:
             elif counter == 2:
                 parsed_output.append('+')
         output.append(''.join(parsed_output))
-
         return ' '.join(output)
 
     @classmethod
@@ -222,6 +221,7 @@ class Cipher:
         returns an encrypted message using the one time key
         decryption method."""
         alphabet_list = [letter for letter in string.ascii_uppercase]
+        text = text.upper()
         pad_key = cls.character_decryptor(pad_key).upper()
 
         # This portion creates a list of numbers based on the index
