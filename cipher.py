@@ -142,7 +142,7 @@ class Cipher:
         returns an encrypted message using the one time key
         encryption method."""
         alphabet_list = [letter for letter in string.ascii_uppercase]
-        text = cls.character_encryptor(text).upper()
+        text = text.upper()
         pad_key = cls.character_encryptor(pad_key).upper()
 
         # This portion creates a list of numbers based on the index

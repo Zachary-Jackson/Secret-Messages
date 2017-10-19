@@ -41,8 +41,8 @@ class KeywordCipherTestCase(unittest.TestCase):
         test_1 = keyword.encryption('knowledge is power', 'kryptos')
         self.assertEqual(test_1, 'DGHVE TPST& BM&IH VTL~>')
 
-        test_2 = keyword.encryption('They are close', 'test')
-        self.assertEqual(test_2, 'RFBY& TPB&S JMQB~')
+        test_2 = keyword.encryption('They are close', 'tree')
+        self.assertEqual(test_2, 'SFBY& TPB&E JMQB~')
 
     def test_decryption(self):
         """ Does the decryption work? """
@@ -51,8 +51,21 @@ class KeywordCipherTestCase(unittest.TestCase):
                                         'kryptos')
         self.assertEqual(test_1, 'KNOWLEDGE IS POWER')
 
-        test_2 = keyword_test.decryption('RFBY& TPB&S JMQB~', 'test')
+        test_2 = keyword_test.decryption('SFBY& TPB&E JMQB~', 'tree')
         self.assertEqual(test_2, 'THEY ARE CLOSE')
+
+    def test_en_decryption_to_cipher(self):
+        """ This tests the encryption and decryption to Cipher. """
+        keyword = KeywordCipher()
+        # This is done above so im not asserting it.
+        test_2 = keyword.encryption('They are close', 'tree')
+        # test_2 = SFBY& TPB&E JMQB~
+        encryption = keyword.one_time_key_encryption(test_2, 'test')
+        #self.assertEqual(encryption, '')
+        decryption = keyword.one_time_key_decryption(encryption, 'test')
+        #self.assertEqual(decryption, test_2)
+        #self.assertEqual(decryption, '')
+
 
 class RailFenceTestCase(unittest.TestCase):
     """ Tests the encryption/decryption for RailFence. """
@@ -91,8 +104,6 @@ class OneTimePadTestCase(unittest.TestCase):
         test_1 = cipher.one_time_key_encryption('Hello', 'xmckl')
         self.assertEqual(test_1, 'EQNVZ ')
 
-        test_2 = cipher.one_time_key_encryption('RFBY& TPB&S JMQB', 'test')
-        self.assertEqual(test_2, 'KJTR& TPBS& JMQB~')
 
     def test_decryption(self):
         """ Does the decryption work? """
@@ -100,7 +111,5 @@ class OneTimePadTestCase(unittest.TestCase):
         test_1 = cipher.one_time_key_decryption('eqnvz', 'xmckl')
         self.assertEqual(test_1, 'HELLO')
 
-        test_2 = cipher.one_time_key_decryption('KJTR& TPBS& JMQB~', 'test')
-        self.assertEqual(test_2, 'RFBY& TPBS& JMQB~')
 
 unittest.main()
