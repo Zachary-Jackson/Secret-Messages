@@ -292,3 +292,9 @@ class Cipher:
             except TypeError:
                 output.append(number)
         return ''.join(output)
+
+    def encryption(self, *args, **kwargs):
+        raise NotImplementedError()
+
+    def decryption(self, *args, **kwargs):
+        raise NotImplementedError()

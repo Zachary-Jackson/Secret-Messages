@@ -1,6 +1,7 @@
 import os
 
 from atbash import Atbash
+from caesar import Caesar
 from rail_fence import RailFence
 from keyword_cipher import KeywordCipher
 from output_to_text import OutputToText
@@ -44,6 +45,9 @@ def cipher_selector(cipher_list):
         # This section creates the chiper class to return
         if cipher == 'atbash':
             cipher = Atbash()
+            break
+        elif cipher == 'caesar':
+            cipher = Caesar()
             break
         elif cipher == 'railfence' or cipher == 'rail fence':
             cipher = RailFence()
@@ -128,7 +132,7 @@ def main(clear_screen=True):
     It prompts the user to select a cipher and to encrypt or decrypt.
     The user is also allowed to quit and end the script."""
 
-    cipher_list = ['Atbash', 'Keyword', 'Rail Fence']
+    cipher_list = ['Atbash', 'Caesar', 'Keyword', 'Rail Fence']
     one_time_pad = True
     output_to_file = True
 
