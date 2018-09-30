@@ -1,7 +1,16 @@
 # Secret-Messages
 
-## This project allows for the encrypting and decrypting of a string into a few select ciphers types.
+Sometimes it is useful to obscure your messages. By creating "fake" messages you are able to hide your
+motives from your enemies.
 
-## The currently added ciphers are Atbash, Keyword cipher, and Rail Fence. The Rail Fence cipher is a type of transportation cipher.
+## Important Info
 
-## The user also has the option to enact a secondary one time key encryption or decryption in addition to the current cipher.
+- This project is a mixture of new and old code. The ciphers are largely old and inefficient.
+The menu has been redesigned to be easier to use and is far simpler.
+
+## Ciphers implemented
+
+- Atbash cipher [https://en.wikipedia.org/wiki/Atbash]
+- Caesar cipher [https://en.wikipedia.org/wiki/Caesar_cipher]
+- Keyword cipher [https://en.wikipedia.org/wiki/Keyword_cipher]
+- Rail Fence cipher [https://en.wikipedia.org/wiki/Rail_fence_cipher]

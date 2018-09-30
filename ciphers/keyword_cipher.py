@@ -1,31 +1,24 @@
 import copy
+import string
 
-from cipher import Cipher
+from .cipher import Cipher
 
 
 class KeywordCipher(Cipher):
-    # I do not know where this will go on other people's computers as this
-    # is a relative path. On my computer it goes to
-    # C:\Users\{username}\Documents\Python on Windows
-    def get_input(self, encrypt=True, *args, **kwargs):
-        """This gets an input from the user and returns a raw text file
-        and a keyword file."""
-        self.clear()
-        if encrypt:
-            message_word = "encrypt"
-        else:
-            message_word = "decrypt"
-        message = input("Please enter the message you want to {}.\n".format(
-                        message_word) +
-                        "Use only standard letters and no numbers.  ")
-        keyword = input("What keyword do you want to use?  ")
-        return message, keyword
+    def __init__(self):
+        """This method initializes a letter list"""
+        self.letters = string.ascii_uppercase
+        self.letters_reversed = self.letters[::-1]
+        self.letters_list = [letter for letter in self.letters]
+        self.letters_reversed_list = ([letter for letter
+                                      in self.letters_reversed])
 
-    def get_keyword(self, *args, **kwargs):
+    @staticmethod
+    def get_keyword():
         """ This gets an input from the user and returns the keyword for
         the keyword cipher. It presumes that the message has been gotten
         elsewhere."""
-        print("\n\t You are using the Keyword cipher.")
+        print("\n You are using the Keyword cipher.")
         keyword = input(" What keyword do you want to use?  ")
         return keyword
 
@@ -33,7 +26,7 @@ class KeywordCipher(Cipher):
         """This method takes a keyword and creates a "new" alphabet
         using the parameters of the Keyword cipher. This returns a
         string of the alphabet"""
-        copy_alphabet = copy.copy((self.letters_list))
+        copy_alphabet = copy.copy(self.letters_list)
         keyword_list = [letter.upper() for letter in keyword]
         used_letters = []
         for letter in keyword_list:
@@ -46,13 +39,18 @@ class KeywordCipher(Cipher):
                         used_letters.append(letter)
         return ''.join(used_letters + copy_alphabet)
 
-    def encryption(self, text, keyword, *args, **kwargs):
-        """This method takes a string of text and returns the uppercased
+    def encryption(self, text, keyword=None, *args, **kwargs):
+        """This method takes a string of text and returns the uppercase
         result from the encryption in the form of a single string."""
+        if not keyword:
+            keyword = self.get_keyword()
+
         # letters_list is renamed alphabet_list for easier readability
         alphabet_list = self.letters_list
-        text = self.character_encryptor(text).upper()
         output = []
+
+        #uppercase all text letters
+        text = text.upper()
 
         new_alphabet_list = self.new_alphabet_from_keyword(keyword)
         new_alphabet_list = [letter for letter in new_alphabet_list]
@@ -70,14 +68,19 @@ class KeywordCipher(Cipher):
             if found is False:
                 output.append(letter)
 
-        return self.character_seperator(''.join(output))
+        return ''.join(output)
 
-    def decryption(self, text, keyword, *args, **kwargs):
-        """This method takes a string of text and returns the uppercased
+    def decryption(self, text, keyword=None, *args, **kwargs):
+        """This method takes a string of text and returns the uppercase
         result from the decryption in the form of a single string."""
+        if not keyword:
+            keyword = self.get_keyword()
+
         alphabet_list = self.letters_list
-        text = self.character_decryptor(text).upper()
         output = []
+
+        #uppercase all text letters
+        text = text.upper()
 
         new_alphabet_list = self.new_alphabet_from_keyword(keyword)
         new_alphabet_list = [letter for letter in new_alphabet_list]

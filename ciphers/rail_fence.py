@@ -1,8 +1,9 @@
-from cipher import Cipher
+from .cipher import Cipher
 
 
 class RailFence(Cipher):
-    def empty_list_creator(self, length):
+    @staticmethod
+    def empty_list_creator(length):
         """ This returns an empty list that is the size of length.
         length needs to be a whole number. """
         returned_list = []
@@ -11,7 +12,8 @@ class RailFence(Cipher):
             length -= 1
         return returned_list
 
-    def rail_sorter(self, rail_1, rail_2, rail_3):
+    @staticmethod
+    def rail_sorter(rail_1, rail_2, rail_3):
         """ This method sorts three rails of a rail fence and returns
         one string with them all sorted properly based on the rail fence
         parameters. """
@@ -30,10 +32,9 @@ class RailFence(Cipher):
         return ''.join(output)
 
     def encryption(self, text_data, *args, **kwargs):
-        """This method takes a string of text and returns the uppercased
+        """This method takes a string of text and returns the uppercase
         result from the encryption in the form of a single string."""
         # Creates a list format of text
-        text_data = self.character_encryptor(text_data)
         text = []
         for letter in text_data:
             text.append(letter)
@@ -74,13 +75,11 @@ class RailFence(Cipher):
                 sub_counter += 1
                 main_counter += 1
         output = self.rail_sorter(text, text_2, text_3)
-        output = self.character_seperator(output)
         return output
 
     def decryption(self, text_data, *args, **kwargs):
-        """This method takes a string of text and returns the uppercased
+        """This method takes a string of text and returns the uppercase
         result from the decryption in the form of a single string."""
-        text_data = self.character_decryptor(text_data)
         length = len(text_data)
         temp_text = []
 
